@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="600" height="250" xmlns="http://www.w3.org/2000/svg">
+<svg width="800" height="450" xmlns="http://www.w3.org/2000/svg">
   <!-- Background -->
-  <rect width="600" height="250" fill="#f8f9fa"/>
-  
+  <rect width="800" height="450" fill="#f8f9fa"/>
+
   <!-- Title -->
-  <text x="300" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">
+  <text x="400" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#2c3e50">
     localization = l10n
   </text>
-  
+
   <!-- Full word centered -->
-  <text x="300" y="110" text-anchor="middle" font-family="monospace" font-size="20" fill="#2c3e50">
+  <text x="400" y="200" text-anchor="middle" font-family="monospace" font-size="28" fill="#2c3e50">
     <tspan fill="#3498db" font-weight="bold">l</tspan><tspan fill="#f39c12">ocalizatio</tspan><tspan fill="#3498db" font-weight="bold">n</tspan>
   </text>
-  
+
   <!-- Count indicator -->
-  <text x="300" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="black">
+  <text x="400" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="black">
     10 letters
   </text>
-  
+
   <!-- Abbreviation centered -->
-  <text x="300" y="180" text-anchor="middle" font-family="monospace" font-size="32">
+  <text x="400" y="320" text-anchor="middle" font-family="monospace" font-size="42">
     <tspan fill="#3498db" font-weight="bold">l</tspan><tspan fill="#f39c12" font-weight="bold">10</tspan><tspan fill="#3498db" font-weight="bold">n</tspan>
   </text>
-  
+
   <!-- Simple explanation -->
-  <text x="300" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#7f8c8d">
+  <text x="400" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#7f8c8d">
     First letter + 10 middle letters + Last letter
   </text>
 </svg>
