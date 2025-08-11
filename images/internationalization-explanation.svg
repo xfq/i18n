@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="250" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="600" height="250" fill="#f8f9fa"/>
+
+  <!-- Title -->
+  <text x="300" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#2c3e50">
+    internationalization = i18n
+  </text>
+
+  <!-- Full word centered -->
+  <text x="300" y="110" text-anchor="middle" font-family="monospace" font-size="20" fill="#2c3e50">
+    <tspan fill="#3498db" font-weight="bold">i</tspan><tspan fill="#f39c12">nternationalizatio</tspan><tspan fill="#3498db" font-weight="bold">n</tspan>
+  </text>
+
+  <!-- Count indicator -->
+  <text x="300" y="135" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="black">
+    18 letters
+  </text>
+
+  <!-- Abbreviation centered -->
+  <text x="300" y="180" text-anchor="middle" font-family="monospace" font-size="32">
+    <tspan fill="#3498db" font-weight="bold">i</tspan><tspan fill="#f39c12" font-weight="bold">18</tspan><tspan fill="#3498db" font-weight="bold">n</tspan>
+  </text>
+
+  <!-- Simple explanation -->
+  <text x="300" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#7f8c8d">
+    First letter + 18 middle letters + Last letter
+  </text>
+</svg>
