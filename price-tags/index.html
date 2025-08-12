@@ -6,13 +6,13 @@
     <title>Price Tags</title>
     <style>
       :root {
-        --bg: #0b0c10;
-        --panel: #11131a;
-        --text: #e6e8ee;
-        --muted: #b7bcc9;
-        --accent: #2dd4bf;
-        --tag-bg: #0f172a;
-        --tag-border: #1f2937;
+        --bg: #ffffff;
+        --panel: #ffffff;
+        --text: #000000;
+        --muted: #555555;
+        --accent: #061714;
+        --tag-bg: #f8fafc;
+        --tag-border: #e5e7eb;
       }
 
       html, body {
@@ -23,7 +23,7 @@
         margin: 0;
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
           Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-        background: radial-gradient(1200px 800px at 10% -10%, #1b1f2d 0%, var(--bg) 60%);
+        background: var(--bg);
         color: var(--text);
         display: grid;
         place-items: center;
@@ -32,10 +32,10 @@
       .container {
         width: min(680px, 92vw);
         padding: 28px 24px 36px;
-        background: linear-gradient(180deg, #0e111a, var(--panel));
-        border: 1px solid #1f2430;
+        background: linear-gradient(180deg, #ffffff, #f7f7fb);
+        border: 1px solid var(--tag-border);
         border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.03);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
       }
 
       h1 {
@@ -68,7 +68,7 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        background: linear-gradient(180deg, var(--tag-bg), #0b1020);
+        background: linear-gradient(180deg, var(--tag-bg), #ffffff);
         border: 1px solid var(--tag-border);
         border-radius: 12px;
         padding: 14px 16px;
