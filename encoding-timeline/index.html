@@ -307,6 +307,84 @@
             transform: translate(calc(50vw - 50%), calc(50vh - 50%)) scale(0.1);
             opacity: 0;
         }
+
+        /* Character zoom animation styles */
+        .character-zoom {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 200;
+            background: rgba(0, 0, 0, 0.95);
+            border: 4px solid #00ff00;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            opacity: 0;
+            transition: all 1.5s ease-in-out;
+            box-shadow: 0 0 50px rgba(0, 255, 0, 0.8);
+        }
+
+        .character-zoom.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .zoomed-character {
+            font-size: 8em;
+            color: #ffffff;
+            text-shadow: 0 0 30px #00ff00;
+            margin-bottom: 20px;
+            animation: character-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes character-glow {
+            from {
+                text-shadow: 0 0 30px #00ff00;
+            }
+            to {
+                text-shadow: 0 0 50px #00ff00, 0 0 70px #00ff00;
+            }
+        }
+
+        .character-codepoint {
+            font-size: 2em;
+            color: #ffff00;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 15px;
+            opacity: 0;
+            animation: codepoint-appear 1s ease-in-out 1s forwards;
+        }
+
+        @keyframes codepoint-appear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .character-description {
+            font-size: 1.2em;
+            color: #cccccc;
+            margin-top: 10px;
+            opacity: 0;
+            animation: description-appear 1s ease-in-out 1.5s forwards;
+        }
+
+        @keyframes description-appear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -422,6 +500,13 @@
             </div>
         </div>
 
+        <!-- Character Zoom Display -->
+        <div class="character-zoom" id="character-zoom">
+            <div class="zoomed-character" id="zoomed-character">😀</div>
+            <div class="character-codepoint" id="character-codepoint">U+1F600</div>
+            <div class="character-description" id="character-description">GRINNING FACE</div>
+        </div>
+
         <div class="timeline-step" id="step-text">
             Click "Start Timeline" to see the evolution of character encodings
         </div>
@@ -480,6 +565,9 @@
             const unicodeLibrary = document.getElementById('unicode-library');
             unicodeLibrary.classList.remove('visible', 'glowing');
             document.getElementById('unicode-title').classList.remove('visible');
+
+            // Hide character zoom
+            hideCharacterZoom();
 
             // Reset step text
             const stepText = document.getElementById('step-text');
@@ -555,6 +643,11 @@
                     const stepText = document.getElementById('step-text');
                     stepText.textContent = "Unicode: The universal solution";
                 }, 1500);
+
+                // Start character zoom sequence
+                setTimeout(() => {
+                    startCharacterZoom();
+                }, 3000);
             }, 2500);
         }
 
@@ -598,6 +691,86 @@
                 charElement.style.animationDelay = `${index * 0.05}s`;
                 grid.appendChild(charElement);
             });
+        }
+
+        function startCharacterZoom() {
+            // Characters to showcase with their Unicode code points and descriptions
+            const showcaseChars = [
+                {
+                    char: '😀',
+                    codepoint: 'U+1F600',
+                    description: 'GRINNING FACE'
+                },
+                {
+                    char: '文',
+                    codepoint: 'U+6587',
+                    description: 'CJK UNIFIED IDEOGRAPH (Culture/Literature)'
+                }
+            ];
+
+            let currentCharIndex = 0;
+
+            function showNextCharacter() {
+                if (currentCharIndex >= showcaseChars.length) {
+                    // Hide character zoom and show final message
+                    setTimeout(() => {
+                        hideCharacterZoom();
+                        showFinalMessage();
+                    }, 3000);
+                    return;
+                }
+
+                const charData = showcaseChars[currentCharIndex];
+                showCharacterZoom(charData);
+                currentCharIndex++;
+
+                // Show next character after 4 seconds
+                setTimeout(showNextCharacter, 4000);
+            }
+
+            showNextCharacter();
+        }
+
+        function showCharacterZoom(charData) {
+            const zoomElement = document.getElementById('character-zoom');
+            const charElement = document.getElementById('zoomed-character');
+            const codepointElement = document.getElementById('character-codepoint');
+            const descriptionElement = document.getElementById('character-description');
+
+            // Update content
+            charElement.textContent = charData.char;
+            codepointElement.textContent = charData.codepoint;
+            descriptionElement.textContent = charData.description;
+
+            // Reset animations by removing and re-adding classes
+            codepointElement.style.animation = 'none';
+            descriptionElement.style.animation = 'none';
+
+            // Force reflow
+            codepointElement.offsetHeight;
+            descriptionElement.offsetHeight;
+
+            // Re-apply animations
+            codepointElement.style.animation = 'codepoint-appear 1s ease-in-out 1s forwards';
+            descriptionElement.style.animation = 'description-appear 1s ease-in-out 1.5s forwards';
+
+            // Show the zoom element
+            zoomElement.classList.add('visible');
+        }
+
+        function hideCharacterZoom() {
+            const zoomElement = document.getElementById('character-zoom');
+            zoomElement.classList.remove('visible');
+        }
+
+        function showFinalMessage() {
+            const stepText = document.getElementById('step-text');
+            stepText.textContent = "Unicode: One standard, infinite possibilities";
+
+            // Show controls again for reset
+            setTimeout(() => {
+                document.querySelector('.controls').classList.remove('hidden');
+            }, 2000);
         }
 
 
