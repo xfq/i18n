@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UTF-8</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: white;
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            width: 600px;
+            height: 400px;
+        }
+
+        .byte-box {
+            width: 400px;
+            height: 80px;
+            border: 3px solid #000;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: appearByte 1s ease-out 0.5s forwards;
+            position: relative;
+        }
+
+        .bit {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #000;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            opacity: 0;
+        }
+
+        .bit.highlight {
+            background: #ff6b6b;
+            box-shadow: 0 0 20px #ff6b6b;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        .letter-a {
+            font-size: 120px;
+            color: #000;
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: floatIn 2s ease-out 2s forwards;
+        }
+
+        .codepoint {
+            font-size: 24px;
+            color: #000;
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 4.5s forwards;
+        }
+
+        .label {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #000;
+            font-size: 18px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.5s forwards;
+        }
+
+        .title {
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #000;
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.3);
+        }
+
+        @keyframes appearByte {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes floatIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-100px);
+            }
+            50% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fillBit {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .restart-btn {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 2px solid #000;
+            border-radius: 25px;
+            color: #000;
+            font-family: inherit;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            background: rgba(0, 0, 0, 0.3);
+            transform: translateX(-50%) scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="letter-a">A</div>
+        <div class="codepoint">U+0041</div>
+        
+        <div class="byte-box">
+            <div class="bit" data-bit="0">0</div>
+            <div class="bit" data-bit="1">1</div>
+            <div class="bit" data-bit="2">0</div>
+            <div class="bit" data-bit="3">0</div>
+            <div class="bit" data-bit="4">0</div>
+            <div class="bit" data-bit="5">0</div>
+            <div class="bit" data-bit="6">0</div>
+            <div class="bit" data-bit="7">1</div>
+        </div>
+        
+        <button class="restart-btn" onclick="restartAnimation()">Restart Animation</button>
+    </div>
+
+    <script>
+        function startBitAnimation() {
+            const bits = document.querySelectorAll('.bit');
+            const binary = '01000001';
+            
+            bits.forEach((bit, index) => {
+                setTimeout(() => {
+                    bit.style.animation = `fillBit 0.5s ease-out forwards`;
+                    bit.style.opacity = '1';
+                    
+                    // Highlight the first bit (index 0) after all bits are filled
+                    if (index === binary.length - 1) {
+                        setTimeout(() => {
+                            bits[0].classList.add('highlight');
+                        }, 1000);
+                    }
+                }, 5500 + (index * 200));
+            });
+        }
+
+        function restartAnimation() {
+            // Reset all animations
+            const elements = document.querySelectorAll('.letter-a, .codepoint, .bit, .label');
+            elements.forEach(el => {
+                el.style.animation = 'none';
+                el.style.opacity = '0';
+                el.classList.remove('highlight');
+            });
+            
+            // Reset byte box
+            const byteBox = document.querySelector('.byte-box');
+            byteBox.style.animation = 'none';
+            byteBox.style.opacity = '0';
+            byteBox.style.transform = 'scale(0.5)';
+            
+            // Restart animations
+            setTimeout(() => {
+                byteBox.style.animation = 'appearByte 1s ease-out 0.5s forwards';
+                
+                const letterA = document.querySelector('.letter-a');
+                letterA.style.animation = 'floatIn 2s ease-out 2s forwards';
+                
+                const codepoint = document.querySelector('.codepoint');
+                codepoint.style.animation = 'fadeIn 1s ease-out 4.5s forwards';
+                
+                const label = document.querySelector('.label');
+                label.style.animation = 'fadeIn 1s ease-out 1.5s forwards';
+                
+                startBitAnimation();
+            }, 100);
+        }
+
+        // Start the animation when page loads
+        window.addEventListener('load', () => {
+            startBitAnimation();
+        });
+    </script>
+</body>
+</html>
