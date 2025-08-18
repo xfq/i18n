@@ -32,6 +32,11 @@
             margin-bottom: 30px;
             color: #ffffff;
             text-shadow: 0 0 10px #00ff00;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .title.hidden {
+            opacity: 0;
         }
 
         .subtitle {
@@ -166,6 +171,142 @@
             font-size: 12px;
             font-weight: bold;
         }
+
+        /* Unicode Library Styles */
+        .unicode-library {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 800px;
+            height: 600px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            border: 8px solid #00ff00;
+            border-radius: 20px;
+            box-shadow:
+                0 0 50px rgba(0, 255, 0, 0.8),
+                inset 0 0 50px rgba(0, 255, 0, 0.2);
+            opacity: 0;
+            transition: all 2s ease-in-out;
+            z-index: 100;
+        }
+
+        .unicode-library.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .unicode-library.glowing {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow:
+                    0 0 50px rgba(0, 255, 0, 0.8),
+                    inset 0 0 50px rgba(0, 255, 0, 0.2);
+            }
+            50% {
+                box-shadow:
+                    0 0 100px rgba(0, 255, 0, 1),
+                    inset 0 0 80px rgba(0, 255, 0, 0.4);
+            }
+        }
+
+        .unicode-title {
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4em;
+            color: #ffffff;
+            text-shadow:
+                0 0 20px #00ff00,
+                0 0 40px #00ff00,
+                0 0 60px #00ff00;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+        }
+
+        .unicode-title.visible {
+            opacity: 1;
+        }
+
+        .unicode-content {
+            padding: 40px;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .unicode-grid {
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            gap: 8px;
+            width: 100%;
+            max-width: 700px;
+            margin: 20px 0;
+        }
+
+        .unicode-char {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 4px;
+            padding: 8px;
+            text-align: center;
+            font-size: 16px;
+            color: #00ff00;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: char-appear 0.5s ease-in-out forwards;
+        }
+
+        .unicode-char:hover {
+            background: rgba(0, 255, 0, 0.3);
+            transform: scale(1.1);
+        }
+
+        @keyframes char-appear {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .unicode-description {
+            text-align: center;
+            color: #ffffff;
+            font-size: 18px;
+            margin-top: 20px;
+            line-height: 1.6;
+        }
+
+        .unicode-stats {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffff00;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* Screen convergence animation */
+        .screen.converging {
+            transition: all 2s ease-in-out;
+            transform: translate(calc(50vw - 50%), calc(50vh - 50%)) scale(0.1);
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
@@ -263,8 +404,24 @@
             </div>
         </div>
 
+        <!-- Unicode Library -->
+        <div class="unicode-library" id="unicode-library">
+            <div class="unicode-title" id="unicode-title">Unicode</div>
+            <div class="unicode-content">
+                <div class="unicode-description">
+                    <strong>The Universal Character Set</strong><br>
+                    One character set to unite them all
+                </div>
+                <div class="unicode-grid" id="unicode-grid">
+                    <!-- Characters will be populated by JavaScript -->
+                </div>
+                <div class="unicode-stats">
+                    Over 150,000 characters from 100+ scripts<br>
+                    Supporting all languages in one unified system
+                </div>
+            </div>
+        </div>
 
-        
         <div class="timeline-step" id="step-text">
             Click "Start Timeline" to see the evolution of character encodings
         </div>
@@ -292,6 +449,11 @@
             {
                 text: "Result: A Tower of Babel - each region speaks its own 'digital language'",
                 screens: ['ascii', 'koi8r', 'iso8859', 'shiftjis', 'gb2312']
+            },
+            {
+                text: "1988: Unicode is born - One universal standard to unite all languages",
+                screens: ['ascii', 'koi8r', 'iso8859', 'shiftjis', 'gb2312'],
+                converge: true
             }
         ];
 
@@ -306,10 +468,18 @@
         }
 
         function resetTimeline() {
+            // Show the main title again
+            document.querySelector('.title').classList.remove('hidden');
+
             // Hide all screens
             document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('visible');
+                screen.classList.remove('visible', 'converging');
             });
+
+            // Hide Unicode library
+            const unicodeLibrary = document.getElementById('unicode-library');
+            unicodeLibrary.classList.remove('visible', 'glowing');
+            document.getElementById('unicode-title').classList.remove('visible');
 
             // Reset step text
             const stepText = document.getElementById('step-text');
@@ -324,14 +494,14 @@
 
         function nextStep() {
             if (currentStep >= steps.length) return;
-            
+
             const step = steps[currentStep];
-            
+
             // Update step text
             const stepText = document.getElementById('step-text');
             stepText.textContent = step.text;
             stepText.classList.add('visible');
-            
+
             // Show screens for this step
             step.screens.forEach((screenId, index) => {
                 setTimeout(() => {
@@ -339,12 +509,95 @@
                 }, index * 500);
             });
 
+            // Handle convergence animation for the final step
+            if (step.converge) {
+                setTimeout(() => {
+                    convergeToUnicode();
+                }, 2000);
+            }
+
             currentStep++;
 
             // Auto-advance to next step
-            if (currentStep < steps.length) {
+            if (currentStep < steps.length && !step.converge) {
                 setTimeout(nextStep, 3000);
             }
+        }
+
+        function convergeToUnicode() {
+            // Hide the main title
+            document.querySelector('.title').classList.add('hidden');
+
+            // Start convergence animation
+            const screens = document.querySelectorAll('.screen.visible');
+            screens.forEach((screen, index) => {
+                setTimeout(() => {
+                    screen.classList.add('converging');
+                }, index * 200);
+            });
+
+            // Show Unicode library after convergence
+            setTimeout(() => {
+                const unicodeLibrary = document.getElementById('unicode-library');
+                unicodeLibrary.classList.add('visible');
+
+                // Populate Unicode characters
+                populateUnicodeGrid();
+
+                // Show Unicode title
+                setTimeout(() => {
+                    document.getElementById('unicode-title').classList.add('visible');
+                    unicodeLibrary.classList.add('glowing');
+                }, 1000);
+
+                // Update final message
+                setTimeout(() => {
+                    const stepText = document.getElementById('step-text');
+                    stepText.textContent = "Unicode: The universal solution";
+                }, 1500);
+            }, 2500);
+        }
+
+        function populateUnicodeGrid() {
+            const grid = document.getElementById('unicode-grid');
+
+            // Sample characters from different Unicode blocks
+            const unicodeChars = [
+                // Latin
+                'A', 'B', 'C', 'Ñ', 'Ü', 'Ç',
+                // Cyrillic
+                'А', 'Б', 'В', 'Я', 'Ю', 'Щ',
+                // Greek
+                'Α', 'Β', 'Γ', 'Δ', 'Ω', 'Π',
+                // Arabic
+                'ا', 'ب', 'ت', 'ث', 'ج', 'ح',
+                // Chinese
+                '中', '文', '字', '符', '编', '码',
+                // Japanese
+                'あ', 'か', 'さ', 'た', 'な', 'は',
+                // Korean
+                '한', '글', '문', '자', '코', '드',
+                // Hebrew
+                'א', 'ב', 'ג', 'ד', 'ה', 'ו',
+                // Devanagari
+                'अ', 'आ', 'इ', 'ई', 'उ', 'ऊ',
+                // Thai
+                'ก', 'ข', 'ค', 'ง', 'จ', 'ฉ',
+                // Symbols
+                '♠', '♥', '♦', '♣', '★', '☆',
+                // Emoji
+                '😀', '🌍', '💻', '🚀', '🎵', '🔥'
+            ];
+
+            grid.innerHTML = '';
+
+            unicodeChars.forEach((char, index) => {
+                const charElement = document.createElement('div');
+                charElement.className = 'unicode-char';
+                charElement.textContent = char;
+                charElement.style.animationDelay = `${index * 0.05}s`;
+                grid.appendChild(charElement);
+            });
         }
 
 
