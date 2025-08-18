@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Encoding Timeline - The Tower of Babel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: #00ff00;
+            overflow-x: auto;
+            min-height: 100vh;
+        }
+
+        .timeline-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            padding: 50px 20px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #ffffff;
+            text-shadow: 0 0 10px #00ff00;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 50px;
+            color: #cccccc;
+        }
+
+        .screen {
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            background: #000;
+            border: 8px solid #333;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s ease-in-out;
+        }
+
+        .screen.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .screen-content {
+            padding: 15px;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .screen-title {
+            color: #00ff00;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 1px solid #00ff00;
+            padding-bottom: 5px;
+        }
+
+        .character-display {
+            font-size: 12px;
+            line-height: 1.2;
+            color: #00ff00;
+        }
+
+        .ascii-screen {
+            top: 100px;
+            left: 50px;
+        }
+
+        .koi8r-screen {
+            top: 150px;
+            left: 450px;
+        }
+
+        .shiftjis-screen {
+            top: 300px;
+            left: 850px;
+        }
+
+        .iso8859-screen {
+            top: 250px;
+            left: 250px;
+        }
+
+        .gb2312-screen {
+            top: 400px;
+            left: 650px;
+        }
+
+
+
+        .timeline-step {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: 2px solid #00ff00;
+            color: #ffffff;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .timeline-step.visible {
+            opacity: 1;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .controls.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .btn {
+            background: #00ff00;
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #00cc00;
+        }
+
+        .year-label {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffff00;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="timeline-container">
+        <h1 class="title">The Tower of Babel</h1>
+
+        <div class="controls">
+            <button class="btn" onclick="startTimeline()">Start Timeline</button>
+            <button class="btn" onclick="resetTimeline()">Reset</button>
+        </div>
+
+        <!-- ASCII Screen (1960s) -->
+        <div class="screen ascii-screen" id="ascii">
+            <div class="year-label">1963</div>
+            <div class="screen-content">
+                <div class="screen-title">ASCII - American Standard</div>
+                <div class="character-display">
+                    A B C D E F G H I J K L M<br>
+                    N O P Q R S T U V W X Y Z<br>
+                    a b c d e f g h i j k l m<br>
+                    n o p q r s t u v w x y z<br>
+                    0 1 2 3 4 5 6 7 8 9<br>
+                    ! @ # $ % ^ & * ( ) - + =<br>
+                    [ ] { } | \ : ; " ' < > ?<br>
+                    <span style="color: #ffff00;">7-bit encoding (128 chars)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- KOI8-R Screen (Soviet Union) -->
+        <div class="screen koi8r-screen" id="koi8r">
+            <div class="year-label">1970s</div>
+            <div class="screen-content">
+                <div class="screen-title">KOI8-R - Cyrillic</div>
+                <div class="character-display">
+                    А Б В Г Д Е Ж З И Й К Л М<br>
+                    Н О П Р С Т У Ф Х Ц Ч Ш Щ<br>
+                    Ъ Ы Ь Э Ю Я<br>
+                    а б в г д е ж з и й к л м<br>
+                    н о п р с т у ф х ц ч ш щ<br>
+                    ъ ы ь э ю я<br>
+                    <span style="color: #ffff00;">8-bit, Cyrillic support</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ISO 8859-1 Screen (Western Europe) -->
+        <div class="screen iso8859-screen" id="iso8859">
+            <div class="year-label">1980s</div>
+            <div class="screen-content">
+                <div class="screen-title">ISO 8859-1 - Latin-1</div>
+                <div class="character-display">
+                    À Á Â Ã Ä Å Æ Ç È É Ê Ë<br>
+                    Ì Í Î Ï Ð Ñ Ò Ó Ô Õ Ö<br>
+                    Ø Ù Ú Û Ü Ý Þ ß à á â ã<br>
+                    ä å æ ç è é ê ë ì í î ï<br>
+                    ð ñ ò ó ô õ ö ø ù ú û ü<br>
+                    ý þ ÿ ¡ ¢ £ ¤ ¥ ¦ § ¨ ©<br>
+                    <span style="color: #ffff00;">Western European chars</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shift-JIS Screen (Japan) -->
+        <div class="screen shiftjis-screen" id="shiftjis">
+            <div class="year-label">1982</div>
+            <div class="screen-content">
+                <div class="screen-title">Shift-JIS - Japanese</div>
+                <div class="character-display">
+                    あ い う え お か き く け こ<br>
+                    さ し す せ そ た ち つ て と<br>
+                    な に ぬ ね の は ひ ふ へ ほ<br>
+                    ま み む め も や ゆ よ<br>
+                    ら り る れ ろ わ を ん<br>
+                    漢 字 文 字 日 本 語<br>
+                    <span style="color: #ffff00;">Multi-byte encoding</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GB2312 Screen (China) -->
+        <div class="screen gb2312-screen" id="gb2312">
+            <div class="year-label">1980</div>
+            <div class="screen-content">
+                <div class="screen-title">GB2312 - Chinese</div>
+                <div class="character-display">
+                    中 文 字 符 编 码<br>
+                    汉 字 简 体 中 文<br>
+                    一 二 三 四 五 六 七 八 九 十<br>
+                    你 好 世 界 计 算 机<br>
+                    北 京 上 海 广 州 深 圳<br>
+                    学 习 工 作 生 活<br>
+                    <span style="color: #ffff00;">Simplified Chinese</span>
+                </div>
+            </div>
+        </div>
+
+
+        
+        <div class="timeline-step" id="step-text">
+            Click "Start Timeline" to see the evolution of character encodings
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const steps = [
+            {
+                text: "1963: ASCII emerges - 7-bit encoding for English only",
+                screens: ['ascii']
+            },
+            {
+                text: "1970s-1980s: Regional encodings emerge to support local languages",
+                screens: ['ascii', 'koi8r', 'iso8859']
+            },
+            {
+                text: "1980s: Asian languages require multi-byte encodings",
+                screens: ['ascii', 'koi8r', 'iso8859', 'shiftjis', 'gb2312']
+            },
+            {
+                text: "The Problem: Incompatible encodings cannot communicate!",
+                screens: ['ascii', 'koi8r', 'iso8859', 'shiftjis', 'gb2312']
+            },
+            {
+                text: "Result: A Tower of Babel - each region speaks its own 'digital language'",
+                screens: ['ascii', 'koi8r', 'iso8859', 'shiftjis', 'gb2312']
+            }
+        ];
+
+        function startTimeline() {
+            currentStep = 0;
+            resetTimeline();
+
+            // Hide the controls after starting
+            document.querySelector('.controls').classList.add('hidden');
+
+            nextStep();
+        }
+
+        function resetTimeline() {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('visible');
+            });
+
+            // Reset step text
+            const stepText = document.getElementById('step-text');
+            stepText.textContent = "Click 'Start Timeline' to see the evolution of character encodings";
+            stepText.classList.remove('visible');
+
+            // Show the controls again
+            document.querySelector('.controls').classList.remove('hidden');
+
+            currentStep = 0;
+        }
+
+        function nextStep() {
+            if (currentStep >= steps.length) return;
+            
+            const step = steps[currentStep];
+            
+            // Update step text
+            const stepText = document.getElementById('step-text');
+            stepText.textContent = step.text;
+            stepText.classList.add('visible');
+            
+            // Show screens for this step
+            step.screens.forEach((screenId, index) => {
+                setTimeout(() => {
+                    document.getElementById(screenId).classList.add('visible');
+                }, index * 500);
+            });
+
+            currentStep++;
+
+            // Auto-advance to next step
+            if (currentStep < steps.length) {
+                setTimeout(nextStep, 3000);
+            }
+        }
+
+
+
+        // Auto-start timeline after page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('step-text').classList.add('visible');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
