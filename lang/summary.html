@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benefits of Using the Language Attribute in Web Pages</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.3;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            padding: 0.5rem;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1600px;
+            height: 100vh;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .benefits {
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 1.2rem;
+        }
+
+        .benefit-item:last-child {
+            border-bottom: none;
+        }
+
+        .checkmark {
+            color: #27ae60;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+
+        .benefit-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-right: 0.5rem;
+        }
+
+        .benefit-subtitle {
+            color: #7f8c8d;
+            font-weight: normal;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .header p {
+                font-size: 0.8rem;
+            }
+
+            .benefits {
+                padding: 1rem;
+            }
+
+            .benefit-item {
+                font-size: 1rem;
+                padding: 1rem 0;
+            }
+
+            .checkmark {
+                font-size: 1.2rem;
+            }
+
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Why use the language attribute?</h1>
+        </div>
+
+        <div class="benefits">
+            <ul class="benefits-list">
+                <li class="benefit-item">
+                    <span class="checkmark">✓</span>
+                    <span class="benefit-title">Accessibility</span>
+                    <span class="benefit-subtitle">(Screen Readers)</span>
+                </li>
+                <li class="benefit-item">
+                    <span class="checkmark">✓</span>
+                    <span class="benefit-title">SEO</span>
+                    <span class="benefit-subtitle">(Search Engines)</span>
+                </li>
+                <li class="benefit-item">
+                    <span class="checkmark">✓</span>
+                    <span class="benefit-title">Rendering</span>
+                    <span class="benefit-subtitle">(Hyphens, Fonts)</span>
+                </li>
+                <li class="benefit-item">
+                    <span class="checkmark">✓</span>
+                    <span class="benefit-title">CSS Styling</span>
+                    <span class="benefit-subtitle">(:lang())</span>
+                </li>
+                <li class="benefit-item">
+                    <span class="checkmark">✓</span>
+                    <span class="benefit-title">User Experience</span>
+                    <span class="benefit-subtitle">(Spelling, Translation)</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
