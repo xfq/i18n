@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese vs Japanese Font Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .comparison-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 40px 0;
+            gap: 40px;
+        }
+        
+        .font-sample {
+            text-align: center;
+            flex: 1;
+            padding: 30px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background-color: #fafafa;
+        }
+        
+        .chinese-font {
+            font-family: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        }
+        
+        .japanese-font {
+            font-family: "Noto Sans JP", "Hiragino Kaku Gothic Pro", "Yu Gothic", "Meiryo", sans-serif;
+        }
+        
+        .character {
+            font-size: 120px;
+            line-height: 1.2;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+        
+        .label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+        
+        .lang-code {
+            font-size: 14px;
+            font-family: monospace;
+            background-color: #ecf0f1;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .character-info {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .unicode-info {
+            font-family: monospace;
+            font-size: 16px;
+            color: #495057;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .character {
+                font-size: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chinese vs Japanese Font Comparison</h1>
+        
+        <div class="character-info">
+            <!-- <h2>Character: 直</h2> -->
+            <div class="unicode-info">
+                Unicode: U+76F4 | Meaning: straight, direct, honest
+            </div>
+        </div>
+        
+        <div class="comparison-container">
+            <div class="font-sample chinese-font">
+                <div class="label">Simplified Chinese</div>
+                <div class="lang-code">lang="zh-Hans"</div>
+                <div class="character" lang="zh-Hans">直</div>
+            </div>
+            
+            <div class="font-sample japanese-font">
+                <div class="label">Japanese</div>
+                <div class="lang-code">lang="ja"</div>
+                <div class="character" lang="ja">直</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
