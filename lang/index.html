@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Attributes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            background: white;
+            /* border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); */
+            padding: 30px;
+            max-width: 1000px;
+            width: 100%;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 22px;
+            font-size: 2em;
+            font-weight: 300;
+            flex-shrink: 0;
+        }
+
+        .content-wrapper {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .code-section {
+            flex: 1;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .code-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 17px;
+            line-height: 1.4;
+            overflow-x: auto;
+            position: relative;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .code-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .code-title::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .html-title::before {
+            background: #e34c26;
+        }
+
+        .xml-title::before {
+            background: #ff6b35;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 4px;
+            padding: 2px 4px;
+            animation: pulse 2s infinite;
+            display: inline-block;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                background: #fff3cd;
+                border-color: #ffc107;
+            }
+            50% {
+                background: #ffeaa7;
+                border-color: #fdcb6e;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .description {
+            color: #6c757d;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 0 4px 4px 0;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .description code {
+            font-size: 15px;
+            background: #e9ecef;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Language Attributes in Markup</h1>
+
+        <div class="content-wrapper">
+            <div class="code-section" id="html-section">
+                <div class="code-title html-title">HTML Document</div>
+                <div class="code-block">
+&lt;!DOCTYPE html&gt;<br>
+&lt;<span id="html-highlight">html lang="en"</span>&gt;<br>
+&lt;head&gt;<br>
+&nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+&nbsp;&nbsp;&lt;title&gt;Document&lt;/title&gt;<br>
+&lt;/head&gt;<br>
+&lt;body&gt;<br>
+&nbsp;&nbsp;&lt;h1&gt;Hello World&lt;/h1&gt;<br>
+&nbsp;&nbsp;&lt;p&gt;This is an English document.&lt;/p&gt;<br>
+&lt;/body&gt;<br>
+&lt;/html&gt;
+                </div>
+                <div class="description">
+                    The <code>lang="en"</code> attribute specifies that this HTML document is in English.
+                </div>
+            </div>
+
+            <div class="code-section" id="xml-section">
+                <div class="code-title xml-title">XML Document</div>
+                <div class="code-block">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+&lt;<span id="xml-highlight">book xml:lang="fr"</span>&gt;<br>
+&nbsp;&nbsp;&lt;title&gt;Le Petit Prince&lt;/title&gt;<br>
+&nbsp;&nbsp;&lt;author&gt;Antoine de Saint-Exupéry&lt;/author&gt;<br>
+&nbsp;&nbsp;&lt;chapter&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Chapitre 1&lt;/title&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;content&gt;Lorsque j'avais six ans...&lt;/content&gt;<br>
+&nbsp;&nbsp;&lt;/chapter&gt;<br>
+&lt;/book&gt;
+                </div>
+                <div class="description">
+                    The <code>xml:lang="fr"</code> attribute indicates French content using XML namespace.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animation sequence
+        function startAnimation() {
+            // First, show the HTML section
+            setTimeout(() => {
+                const htmlSection = document.getElementById('html-section');
+                htmlSection.classList.add('visible');
+                
+                // Highlight the html lang attribute after section appears
+                setTimeout(() => {
+                    const htmlHighlight = document.getElementById('html-highlight');
+                    htmlHighlight.classList.add('highlight');
+                }, 500);
+            }, 500);
+
+            // Then show the XML section
+            setTimeout(() => {
+                const xmlSection = document.getElementById('xml-section');
+                xmlSection.classList.add('visible');
+                
+                // Highlight the xml:lang attribute after section appears
+                setTimeout(() => {
+                    const xmlHighlight = document.getElementById('xml-highlight');
+                    xmlHighlight.classList.add('highlight');
+                }, 500);
+            }, 2500);
+        }
+
+        // Start animation when page loads
+        window.addEventListener('load', startAnimation);
+    </script>
+</body>
+</html>
