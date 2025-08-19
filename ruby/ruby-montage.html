@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruby Annotations Montage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .montage-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .website-frame {
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            transition: all 0.3s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .website-frame:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+        }
+
+        .frame-1 {
+            width: 350px;
+            height: 240px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .frame-2 {
+            width: 400px;
+            height: 220px;
+            top: 15%;
+            right: 10%;
+            animation-delay: 1s;
+        }
+
+        .frame-3 {
+            width: 330px;
+            height: 260px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 2s;
+        }
+
+        .frame-4 {
+            width: 370px;
+            height: 230px;
+            bottom: 15%;
+            right: 5%;
+            animation-delay: 3s;
+        }
+
+        /* .frame-5 {
+            width: 340px;
+            height: 200px;
+            top: 45%;
+            left: 35%;
+            animation-delay: 4s;
+        } */
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(1deg); }
+            50% { transform: translateY(-5px) rotate(-0.5deg); }
+            75% { transform: translateY(-15px) rotate(0.5deg); }
+        }
+
+        ruby {
+            ruby-align: center;
+            ruby-position: over;
+        }
+
+        rt {
+            font-size: 0.6em;
+            color: #e74c3c;
+            font-weight: bold;
+            text-shadow: 0 0 3px rgba(231, 76, 60, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 3px rgba(231, 76, 60, 0.5); }
+            to { text-shadow: 0 0 8px rgba(231, 76, 60, 0.8), 0 0 12px rgba(231, 76, 60, 0.6); }
+        }
+
+        .website-content {
+            font-size: 20px;
+            line-height: 1.5;
+            color: #2c3e50;
+        }
+
+        .website-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 6px;
+        }
+
+        .animated-title {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            z-index: 1000;
+            animation: titleAnimation 3s ease-in-out 8s forwards;
+        }
+
+        @keyframes titleAnimation {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.5) rotateY(90deg);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2) rotateY(0deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+            }
+        }
+
+        .fade-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            opacity: 0;
+            z-index: 999;
+            animation: fadeIn 2s ease-in-out 8s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="montage-container" lang="ja">
+        <!-- Japanese News Website -->
+        <div class="website-frame frame-1">
+            <div class="website-header">日本経済新聞</div>
+            <div class="website-content">
+                <p><ruby>経済<rt>けいざい</rt></ruby>ニュースの<ruby>最新<rt>さいしん</rt></ruby>情報をお届けします。</p>
+                <p><ruby>株価<rt>かぶか</rt></ruby>の<ruby>動向<rt>どうこう</rt></ruby>や<ruby>企業<rt>きぎょう</rt></ruby>の<ruby>業績<rt>ぎょうせき</rt></ruby>について。</p>
+                <!-- <p><ruby>今日<rt>きょう</rt></ruby>の<ruby>為替<rt>かわせ</rt></ruby>レートは<ruby>安定<rt>あんてい</rt></ruby>しています。</p> -->
+            </div>
+        </div>
+
+        <div class="website-frame frame-2" lang="zh-Hans">
+            <div class="website-header">罗马拼音</div>
+            <div class="website-content">
+                <p style="font-family: ToneOZ-Pinyin-Kai-Simplified; font-size: 26px;">千里之行，始于足下。</p>
+            </div>
+        </div>
+
+        <!-- Japanese Recipe Site -->
+        <div class="website-frame frame-3" lang="ja">
+            <div class="website-header">料理レシピ</div>
+            <div class="website-content">
+                <p><ruby>美味<rt>おいし</rt></ruby>い<ruby>和食<rt>わしょく</rt></ruby>の<ruby>作<rt>つく</rt></ruby>り方。</p>
+                <p><ruby>材料<rt>ざいりょう</rt></ruby>：<ruby>米<rt>こめ</rt></ruby>、<ruby>魚<rt>さかな</rt></ruby>、<ruby>野菜<rt>やさい</rt></ruby></p>
+                <p><ruby>調理<rt>ちょうり</rt></ruby><ruby>時間<rt>じかん</rt></ruby>は<ruby>約<rt>やく</rt></ruby>30<ruby>分<rt>ふん</rt></ruby>です。</p>
+            </div>
+        </div>
+
+        <!-- Japanese Education -->
+        <div class="website-frame frame-4" lang="ja">
+            <div class="website-header">教育情報</div>
+            <div class="website-content">
+                <p><ruby>学習<rt>がくしゅう</rt></ruby>方法と<ruby>教育<rt>きょういく</rt></ruby>システム。</p>
+                <p><ruby>大学<rt>だいがく</rt></ruby><ruby>受験<rt>じゅけん</rt></ruby>の<ruby>準備<rt>じゅんび</rt></ruby>について。</p>
+                <p><ruby>将来<rt>しょうらい</rt></ruby>の<ruby>進路<rt>しんろ</rt></ruby>を<ruby>考<rt>かんが</rt></ruby>える。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="fade-overlay"></div>
+    <div class="animated-title">What is ruby?</div>
+
+    <script>
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const frames = document.querySelectorAll('.website-frame');
+            
+            frames.forEach(frame => {
+                frame.addEventListener('mouseenter', function() {
+                    this.style.zIndex = '10';
+                });
+                
+                frame.addEventListener('mouseleave', function() {
+                    this.style.zIndex = '1';
+                });
+            });
+
+            // Add random movement to frames
+            setInterval(() => {
+                frames.forEach(frame => {
+                    const randomX = Math.random() * 20 - 10;
+                    const randomY = Math.random() * 20 - 10;
+                    frame.style.transform += ` translate(${randomX}px, ${randomY}px)`;
+                    
+                    setTimeout(() => {
+                        frame.style.transform = frame.style.transform.replace(` translate(${randomX}px, ${randomY}px)`, '');
+                    }, 2000);
+                });
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
