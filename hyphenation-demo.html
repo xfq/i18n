@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyphenation Demo</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            line-height: 1.4;
+            padding: 15px;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: calc(100vh - 170px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0 0 15px 0;
+            font-size: 24px;
+        }
+
+        .demo-container {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+            align-items: flex-start;
+        }
+
+        .demo-section {
+            flex: 1;
+        }
+
+        .demo-section h2 {
+            color: #555;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+            margin: 0 0 15px 0;
+            font-size: 18px;
+        }
+        
+        .text-column {
+            width: 180px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            background-color: #fafafa;
+            margin: 10px 0;
+            font-size: 14px;
+            text-align: justify;
+            hyphens: auto;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        .without-lang {
+            border-color: #e74c3c;
+        }
+
+        .with-lang {
+            border-color: #27ae60;
+        }
+
+        .label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            font-size: 12px;
+        }
+
+        .label.without {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .label.with {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .explanation {
+            background-color: #e8f4f8;
+            padding: 10px;
+            margin: 15px 0;
+            font-style: italic;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hyphenation Demo</h1>
+
+        <div class="explanation">
+            The same German text is displayed in two narrow columns side by side.
+        </div>
+
+        <div class="demo-container">
+            <div class="demo-section">
+                <h2>Without <code>lang</code></h2>
+                <div class="label without">Without lang attribute</div>
+                <div class="text-column without-lang">
+                    Die Donaudampfschifffahrtsgesellschaftskapitänswitwe war eine außergewöhnliche Persönlichkeit in der österreichischen Gesellschaft. Ihre Geschichten über die Donauschifffahrt faszinierten alle Zuhörer. Die Dampfschifffahrtsunternehmen jener Zeit waren beeindruckende Wirtschaftsunternehmen.
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h2>With <code>lang="de"</code></h2>
+                <div class="label with">With lang="de"</div>
+                <div class="text-column with-lang" lang="de">
+                    Die Donaudampfschifffahrtsgesellschaftskapitänswitwe war eine außergewöhnliche Persönlichkeit in der österreichischen Gesellschaft. Ihre Geschichten über die Donauschifffahrt faszinierten alle Zuhörer. Die Dampfschifffahrtsunternehmen jener Zeit waren beeindruckende Wirtschaftsunternehmen.
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <strong>Key Differences:</strong> German hyphenation rules are applied when <code>lang="de"</code> is specified, breaking long compound words properly and improving text flow.
+        </div>
+    </div>
+</body>
+</html>
