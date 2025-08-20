@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabic Text</title>
+    <style>
+        body {
+            font-family: 'Noto Sans Arabic', sans-serif;
+            font-size: 24px;
+            line-height: 1.8;
+            padding: 40px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+
+        .arabic-text {
+            margin: 20px 0;
+        }
+
+        .arabic-word {
+            position: relative;
+            display: inline-block;
+            margin-left: 8px;
+        }
+
+        .arabic-word::before {
+            content: '';
+            position: absolute;
+            right: -4px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e74c3c;
+        }
+
+        .arabic-word.first-word::before {
+            display: none;
+        }
+
+        .paragraph {
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        /* .description {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+        } */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span lang="ar">النص العربي</span> - Arabic Text</h1>
+
+        <!-- <div class="description">
+            This page demonstrates line break opportunities for Arabic text.
+        </div> -->
+
+        <div class="paragraph" lang="ar">
+            <div class="arabic-text" id="text1">
+                مرحباً! هذا مثال على النص العربي.
+            </div>
+        </div>
+
+        <div class="paragraph" lang="ar">
+            <div class="arabic-text" id="text2">
+                العالم العربي منطقة غنية بالثقافات والتقاليد المتنوعة.
+            </div>
+        </div>
+
+        <div class="paragraph" lang="ar">
+            <div class="arabic-text" id="text3">
+                اللغة العربية لغة جميلة تُكتب من اليمين إلى اليسار.
+            </div>
+        </div>
+
+        <div class="paragraph" lang="ar">
+            <div class="arabic-text" id="text4">
+                يتحدث بالعربية ملايين الناس حول العالم في بلدان مختلفة.
+            </div>
+        </div>
+
+        <!-- <div class="paragraph">
+            <div class="arabic-text" id="text5">
+                الأدب العربي له تاريخ طويل وثري بالشعراء والكتاب العظماء.
+            </div>
+        </div> -->
+    </div>
+
+    <script>
+        // Wrap each word with a span element
+        function addVerticalLines() {
+            const textElements = document.querySelectorAll('.arabic-text');
+
+            textElements.forEach(element => {
+                const text = element.textContent.trim();
+                const words = text.split(/\s+/);
+
+                element.innerHTML = words.map((word, index) => {
+                    const isFirstWord = index === 0;
+                    const className = isFirstWord ? 'arabic-word first-word' : 'arabic-word';
+                    return `<span class="${className}">${word}</span>`;
+                }).join(' ');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', addVerticalLines);
+    </script>
+</body>
+</html>
