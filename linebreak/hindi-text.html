@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hindi Text</title>
+    <style>
+        body {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-size: 24px;
+            line-height: 1.8;
+            padding: 40px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+
+        .hindi-text {
+            margin: 20px 0;
+        }
+
+        .hindi-word {
+            position: relative;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .hindi-word::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e74c3c;
+        }
+
+        .hindi-word.first-word::before {
+            display: none;
+        }
+
+        .paragraph {
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+
+        /* .description {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+        } */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span lang="hi">हिंदी पाठ</span> - Hindi Text</h1>
+        
+        <!-- <div class="description">
+            This page demonstrates line break opportunities for Hindi text.
+        </div> -->
+
+        <div class="paragraph" lang="hi">
+            <div class="hindi-text" id="text1">
+                नमस्ते! यह एक हिंदी पाठ का उदाहरण है।
+            </div>
+        </div>
+
+        <div class="paragraph" lang="hi">
+            <div class="hindi-text" id="text2">
+                भारत एक विविधताओं से भरा देश है जहाँ अनेक भाषाएँ बोली जाती हैं।
+            </div>
+        </div>
+
+        <div class="paragraph" lang="hi">
+            <div class="hindi-text" id="text3">
+                हिंदी भारत की राजभाषा है और यह देवनागरी लिपि में लिखी जाती है।
+            </div>
+        </div>
+
+        <div class="paragraph" lang="hi">
+            <div class="hindi-text" id="text4">
+                संस्कृत से निकली यह भाषा आज करोड़ों लोगों द्वारा बोली जाती है।
+            </div>
+        </div>
+
+        <!-- <div class="paragraph">
+            <div class="hindi-text" id="text5">
+                हिंदी साहित्य में कई महान कवि और लेखक हुए हैं जिन्होंने अमूल्य योगदान दिया है।
+            </div>
+        </div> -->
+    </div>
+
+    <script>
+        // Wrap each word with a span element
+        function addVerticalLines() {
+            const textElements = document.querySelectorAll('.hindi-text');
+
+            textElements.forEach(element => {
+                const text = element.textContent.trim();
+                const words = text.split(/\s+/);
+
+                element.innerHTML = words.map((word, index) => {
+                    const isFirstWord = index === 0;
+                    const className = isFirstWord ? 'hindi-word first-word' : 'hindi-word';
+                    return `<span class="${className}">${word}</span>`;
+                }).join(' ');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', addVerticalLines);
+    </script>
+</body>
+</html>
