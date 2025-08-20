@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Line Breaking</title>
+    <style>
+        body {
+            font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+
+        .text-container {
+            border: 2px solid #ddd;
+            padding: 30px;
+            border-radius: 8px;
+            background: #fafafa;
+            position: relative;
+            overflow: hidden;
+            height: 160px;
+            font-size: 32px;
+            line-height: 1.6;
+        }
+
+        .japanese-text {
+            position: relative;
+            display: inline;
+            font-size: 32px;
+        }
+
+        .character {
+            display: inline-block;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .break-indicator {
+            position: absolute;
+            top: -30px;
+            left: -2px;
+            width: 4px;
+            height: 100px;
+            background: #007bff;
+            opacity: 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .break-indicator.active {
+            opacity: 1;
+        }
+
+        .x-mark {
+            position: absolute;
+            top: -15px;
+            left: -12px;
+            color: #ff4444;
+            font-size: 32px;
+            font-weight: bold;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .x-mark.show {
+            opacity: 1;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .wrapped {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .controls {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 20px;
+            margin: 0 10px;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-down {
+            animation: slideDown 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Japanese Line Breaking Animation</h1>
+        
+        <div class="text-container" id="textContainer">
+            <div class="japanese-text" id="japaneseText">
+                これは日本語のテキストです。
+            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="startAnimation()" id="startBtn">Start Animation</button>
+            <button onclick="resetAnimation()" id="resetBtn">Reset</button>
+        </div>
+
+
+    </div>
+
+    <script>
+        let animationRunning = false;
+        const originalText = "これは日本語のテキストです。";
+        
+        function createCharacterSpans(text) {
+            const container = document.getElementById('japaneseText');
+            container.innerHTML = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const span = document.createElement('span');
+                span.className = 'character';
+                span.textContent = text[i];
+                span.id = `char-${i}`;
+                
+                // Add break indicator
+                const breakIndicator = document.createElement('div');
+                breakIndicator.className = 'break-indicator';
+                span.appendChild(breakIndicator);
+                
+                // Add X mark
+                const xMark = document.createElement('div');
+                xMark.className = 'x-mark';
+                xMark.textContent = '✗';
+                span.appendChild(xMark);
+                
+                container.appendChild(span);
+            }
+        }
+
+        async function startAnimation() {
+            if (animationRunning) return;
+            
+            animationRunning = true;
+            document.getElementById('startBtn').disabled = true;
+            
+            // Reset any previous animation state
+            resetAnimation();
+            createCharacterSpans(originalText);
+            
+            await sleep(1000);
+            
+            // Step 1: Show break indicator before the period (。)
+            const periodIndex = originalText.indexOf('。');
+            if (periodIndex !== -1) {
+                const periodChar = document.getElementById(`char-${periodIndex}`);
+                const breakIndicator = periodChar.querySelector('.break-indicator');
+                breakIndicator.classList.add('active');
+                
+                await sleep(1500);
+                
+                // Step 2: Show X mark (invalid break)
+                const xMark = periodChar.querySelector('.x-mark');
+                xMark.classList.add('show');
+                
+                await sleep(1500);
+                
+                // Step 3: Hide X mark and move break indicator back
+                xMark.classList.remove('show');
+                breakIndicator.classList.remove('active');
+                
+                await sleep(500);
+                
+                // Step 4: Show break indicator before the character preceding the period
+                if (periodIndex > 0) {
+                    const prevChar = document.getElementById(`char-${periodIndex - 1}`);
+                    const prevBreakIndicator = prevChar.querySelector('.break-indicator');
+                    prevBreakIndicator.classList.add('active');
+                    
+                    await sleep(1500);
+                    
+                    // Step 5: Apply the line break (wrap the period with preceding character)
+                    prevBreakIndicator.classList.remove('active');
+                    
+                    // Create wrapped version
+                    const container = document.getElementById('japaneseText');
+                    const firstPart = originalText.substring(0, periodIndex - 1);
+                    const wrappedPart = originalText.substring(periodIndex - 1);
+                    
+                    container.innerHTML = `
+                        <span>${firstPart}</span>
+                        <span class="wrapped slide-down">${wrappedPart}</span>
+                    `;
+                }
+            }
+            
+            animationRunning = false;
+            document.getElementById('startBtn').disabled = false;
+        }
+
+        function resetAnimation() {
+            const container = document.getElementById('japaneseText');
+            container.innerHTML = originalText;
+            animationRunning = false;
+            document.getElementById('startBtn').disabled = false;
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            resetAnimation();
+        });
+    </script>
+</body>
+</html>
