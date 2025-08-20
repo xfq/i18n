@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Breaking in Different Scripts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+            line-height: 1.4;
+            background-color: #f5f5f5;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: calc(100vh - 20px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin: 0 0 15px 0;
+            border-bottom: 3px solid #007acc;
+            padding-bottom: 8px;
+            font-size: 1.5em;
+        }
+
+        .scripts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .script-section {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .script-header {
+            background: linear-gradient(135deg, #007acc, #0056b3);
+            color: white;
+            padding: 10px 15px;
+            margin: 0;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .text-container {
+            padding: 15px;
+            background: #fafafa;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrapping-demo {
+            width: 100%;
+            max-width: 280px;
+            border: 2px dashed #007acc;
+            padding: 12px;
+            margin: 8px 0;
+            background: white;
+            border-radius: 5px;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            flex: 1;
+            min-height: 120px;
+        }
+        
+        .thai-text {
+            font-family: 'Noto Sans Thai', 'Tahoma', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .arabic-text {
+            font-family: 'Noto Sans Arabic', 'Tahoma', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .japanese-text {
+            font-family: 'Noto Sans JP', 'Yu Gothic', 'Meiryo', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* .description {
+            margin-top: 10px;
+            padding: 8px;
+            background: #e8f4fd;
+            border-left: 3px solid #007acc;
+            font-style: italic;
+            color: #555;
+            font-size: 12px;
+            flex-shrink: 0;
+        } */
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Line Breaking in Different Scripts</h1>
+        
+        <div class="scripts-grid">
+            <!-- Thai Script Section -->
+            <div class="script-section">
+                <h2 class="script-header">Thai Script (<span lang="th">ไทย</span>)</h2>
+                <div class="text-container">
+                    <div class="wrapping-demo thai-text" id="thai-demo" lang="th">
+                        ภาษาไทยเป็นภาษาราชการของประเทศไทย และเป็นภาษาหลักที่ใช้สื่อสารในชีวิตประจำวันของคนไทย การเขียนภาษาไทยไม่มีการเว้นวรรคระหว่างคำ ทำให้การตัดบรรทัดต้องอาศัยการวิเคราะห์ความหมายของประโยค ระบบการเขียนภาษาไทยมีความซับซ้อนในการกำหนดจุดตัดบรรทัดที่เหมาะสม เนื่องจากต้องพิจารณาหน่วยคำและความหมายของประโยค การใช้เทคโนโลยีในการประมวลผลภาษาไทยจึงต้องมีอัลกอริทึมที่สามารถแยกคำและกำหนดจุดตัดบรรทัดได้อย่างถูกต้อง นอกจากนี้ยังต้องคำนึงถึงสัญลักษณ์พิเศษ เครื่องหมายวรรคตอน และตัวอักษรที่มีลักษณะเฉพาะของภาษาไทย
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arabic Script Section -->
+            <div class="script-section">
+                <h2 class="script-header">Arabic Script (<span lang="ar">العربية</span>)</h2>
+                <div class="text-container">
+                    <div class="wrapping-demo arabic-text" id="arabic-demo" lang="ar">
+                        اللغة العربية هي إحدى اللغات العالمية وأكثرها انتشاراً، وهي لغة القرآن الكريم ولغة الضاد. تتميز الكتابة العربية بأنها تُكتب من اليمين إلى اليسار، وتتصل الحروف ببعضها البعض في معظم الأحيان. يتطلب كسر الأسطر في النصوص العربية مراعاة خاصة لاتجاه الكتابة والقواعد النحوية والصرفية. كما أن الحروف العربية تتغير أشكالها حسب موقعها في الكلمة، مما يجعل عملية تحديد نقاط القطع المناسبة أكثر تعقيداً. بالإضافة إلى ذلك، فإن النصوص العربية قد تحتوي على كلمات من لغات أخرى أو أرقام، مما يتطلب معالجة خاصة للنصوص المختلطة والتأكد من الحفاظ على التدفق الطبيعي للقراءة.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Japanese Script Section -->
+            <div class="script-section">
+                <h2 class="script-header">Japanese Script (<span lang="ja">日本語</span>)</h2>
+                <div class="text-container">
+                    <div class="wrapping-demo japanese-text" id="japanese-demo" lang="ja">
+                        日本語は漢字、ひらがな、カタカナという三つの文字体系を組み合わせて使用する言語です。英語のように単語間にスペースを入れることはありません。そのため、改行位置の決定は複雑で、文字の種類や文脈を考慮する必要があります。日本語の行分割では、句読点の前後、助詞の位置、漢字とひらがなの境界などが重要な要素となります。また、禁則処理と呼ばれるルールにより、行頭に来てはいけない文字（句読点など）や行末に来てはいけない文字（開き括弧など）が定められています。現代のウェブブラウザやワードプロセッサでは、これらの複雑なルールを自動的に処理して、読みやすい日本語テキストの表示を実現しています。
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script>
+        // Add some interactive highlighting
+        document.querySelectorAll('.wrapping-demo').forEach(demo => {
+            demo.addEventListener('mouseenter', function() {
+                this.style.borderColor = '#ff6b6b';
+                this.style.backgroundColor = '#fff5f5';
+            });
+
+            demo.addEventListener('mouseleave', function() {
+                this.style.borderColor = '#007acc';
+                this.style.backgroundColor = 'white';
+            });
+        });
+    </script>
+</body>
+</html>
